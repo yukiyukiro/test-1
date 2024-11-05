@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Distributor Details Form</title>
     <style>
+        /* Same styling as before */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -15,7 +16,6 @@
             height: 100vh;
             margin: 0;
         }
-
         .form-container {
             background-color: #fff;
             padding: 20px;
@@ -23,26 +23,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
-            border: 1px solid #ccc; /* Add border to simulate paper */
         }
-
         .form-container h2 {
             text-align: center;
             margin-bottom: 20px;
-            font-family: cursive; /* Simulate handwritten font */
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
         .form-group label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
-            font-family: cursive; /* Simulate handwritten font */
         }
-
         .form-group input,
         .form-group textarea {
             width: 100%;
@@ -51,11 +44,9 @@
             border-radius: 4px;
             font-size: 14px;
         }
-
         .form-group textarea {
             resize: vertical;
         }
-
         .upload-button {
             display: block;
             width: 100%;
@@ -67,38 +58,62 @@
             font-size: 16px;
             cursor: pointer;
         }
-
         .upload-button:hover {
             background-color: #0056b3;
         }
     </style>
+    <script>
+        async function uploadData() {
+            const location = document.getElementById("location").value;
+            const name = document.getElementById("name").value;
+            const facebook = document.getElementById("facebook").value;
+            const address = document.getElementById("address").value;
+
+            const data = { location, name, facebook, address };
+
+            try {
+                const response = await fetch("AKfycbzH1pZI33-O8A3ppYuiJRVGWwmujNYeJNtntbQUsBUfbvnZMOPgKG7ULlh4qafYpsMyLw", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    alert("Data uploaded successfully!");
+                } else {
+                    alert("Failed to upload data. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
-        <h2>DISTRIBUTOR DETAILS</h2>
-        <form>
+        <h2>Distributor Details</h2>
+        <form onsubmit="event.preventDefault(); uploadData();">
             <div class="form-group">
-                <label for="location">LOCATION:</label>
-                <input type="text" id="location" name="location" placeholder="Enter location">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
             </div>
             <div class="form-group">
-                <label for="name">NAME:</label>
-                <input type="text" id="name" name="name" placeholder="Enter distributor name">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter distributor name" required>
             </div>
             <div class="form-group">
-                <label for="facebook">FACEBOOK PAGE:</label>
-                <input type="url" id="facebook" name="facebook" placeholder="Enter Facebook page URL">
+                <label for="facebook">Facebook Page:</label>
+                <input type="url" id="facebook" name="facebook" placeholder="Enter Facebook page URL" required>
             </div>
             <div class="form-group">
-                <label for="address">ADDRESS:</label>
-                <textarea id="address" name="address" rows="3" placeholder="Enter full address"></textarea>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="3" placeholder="Enter full address" required></textarea>
             </div>
-            <button type="button" id="upload-button" class="upload-button">UPLOAD</button>
+            <button type="submit" class="upload-button">Upload</button>
         </form>
     </div>
-
-    <script>
-        // ... Your JavaScript code for the upload functionality
-    </script>
 </body>
 </html>
