@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Distributor Details Form</title>
     <style>
-        /* Same styling as before */
+        /* Basic styling for the form */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -63,29 +63,38 @@
         }
     </style>
     <script>
+        // Function to collect and send data to Google Sheets
         async function uploadData() {
+            // Collect input values from the form
             const location = document.getElementById("location").value;
             const name = document.getElementById("name").value;
             const facebook = document.getElementById("facebook").value;
             const address = document.getElementById("address").value;
 
+            // Prepare the data object and ensure it's correctly formatted
             const data = { location, name, facebook, address };
 
+            // Replace YOUR_WEB_APP_URL with the URL from your Google Apps Script deployment
+            const webAppUrl = "YOUR_WEB_APP_URL";
+
             try {
-                const response = await fetch("AKfycbzH1pZI33-O8A3ppYuiJRVGWwmujNYeJNtntbQUsBUfbvnZMOPgKG7ULlh4qafYpsMyLw", {
+                // Send the data using a POST request
+                const response = await fetch(webAppUrl, {
                     method: "POST",
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(data), // Convert the data object to a JSON string
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json" // Set the content type to JSON
                     }
                 });
 
+                // Check if the response is successful
                 if (response.ok) {
                     alert("Data uploaded successfully!");
                 } else {
                     alert("Failed to upload data. Please try again.");
                 }
             } catch (error) {
+                // Log any errors to the console and alert the user
                 console.error("Error:", error);
                 alert("An error occurred. Please try again.");
             }
